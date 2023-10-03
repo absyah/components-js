@@ -21,7 +21,7 @@ import {
 import { useCreateLayoutContext } from '../context';
 import { usePinnedTracks, useTracks } from '../hooks';
 import { Chat } from './Chat';
-import { ControlBar } from './ControlBar';
+import { ControlBar, ControlBarControls } from './ControlBar';
 
 /**
  * @public
@@ -30,6 +30,7 @@ export interface VideoConferenceProps extends React.HTMLAttributes<HTMLDivElemen
   chatMessageFormatter?: MessageFormatter;
   chatMessageEncoder?: MessageEncoder;
   chatMessageDecoder?: MessageDecoder;
+  controlBarOptions?: ControlBarControls;
 }
 
 /**
@@ -54,6 +55,7 @@ export function VideoConference({
   chatMessageFormatter,
   chatMessageDecoder,
   chatMessageEncoder,
+  controlBarOptions,
   ...props
 }: VideoConferenceProps) {
   const [widgetState, setWidgetState] = React.useState<WidgetState>({
@@ -137,7 +139,7 @@ export function VideoConference({
                 </FocusLayoutContainer>
               </div>
             )}
-            <ControlBar controls={{ chat: true }} />
+            <ControlBar controls={controlBarOptions ?? { chat: true }} />
           </div>
           <Chat
             style={{ display: widgetState.showChat ? 'flex' : 'none' }}

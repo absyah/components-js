@@ -11,11 +11,16 @@ import { useMediaQuery } from '../hooks/internal';
 import { useMaybeLayoutContext } from '../context';
 import { supportsScreenSharing } from '@livekit/components-core';
 import { mergeProps } from '../utils';
+import { SettingsMenuOptions, SettingsMenu } from '../components/controls/SettingsMenu';
 
 /** @public */
 export type ControlBarControls = {
   microphone?: boolean;
   camera?: boolean;
+  /**
+   * @alpha
+   */
+  settings?: SettingsMenuOptions;
   chat?: boolean;
   screenShare?: boolean;
   leave?: boolean;
@@ -123,6 +128,7 @@ export function ControlBar({ variation, controls, ...props }: ControlBarProps) {
           {showText && (isScreenShareEnabled ? 'Stop screen share' : 'Share screen')}
         </TrackToggle>
       )}
+      {visibleControls.settings && <SettingsMenu settings={visibleControls.settings} />}
       {visibleControls.chat && (
         <ChatToggle>
           {showIcon && <ChatIcon />}
